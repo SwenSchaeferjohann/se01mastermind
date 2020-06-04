@@ -63,18 +63,21 @@ function MasterMind() {
         value={guesses[counter].try}
         counter={counter}
         setCounter={setCounter}
+        code={code}
       />
     </Fragment>
   )
 }
 
-const GuessInput = ({ value, setValue, counter, setCounter }) => {
+const GuessInput = ({ value, setValue, counter, setCounter, code }) => {
   console.log('first guess')
 
   return (
     <Fragment>
       <div>Enter guess #{counter + 1} (XXXX)</div>
-      <form onSubmit={(e) => handleGuessSubmit(e, value, setCounter, counter)}>
+      <form
+        onSubmit={(e) => handleGuessSubmit(e, value, setCounter, counter, code)}
+      >
         <input
           type='text'
           onChange={(e) => setValue(e.target.value)}
@@ -87,11 +90,15 @@ const GuessInput = ({ value, setValue, counter, setCounter }) => {
   )
 }
 
-const handleGuessSubmit = (e, value, setCounter, counter) => {
+const handleGuessSubmit = (e, value, setCounter, counter, code) => {
   e.preventDefault()
   // check if length is four
+  if (value.length === 4) {
+    setCounter(counter + 1)
+  }
 
+  console.log('code:', code)
   // calculate hint
-  setCounter(counter + 1)
+
   return console.log('submitted', value)
 }
