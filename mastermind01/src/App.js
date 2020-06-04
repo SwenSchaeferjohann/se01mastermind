@@ -156,24 +156,24 @@ const handleGuessSubmit = (
   setWinLoose
 ) => {
   e.preventDefault()
-  console.log('code:', code)
+  // console.log('code:', code)
 
   // calculate hint
   var hintCount = 0
   if (value.length === 4) {
     var strArr = [...code]
     strArr.map((char, index) => {
-      console.log('char: ', char, index)
+      // console.log('char: ', char, index)
 
       var vpos = value.charAt(index)
-      console.log('vpos: ', vpos)
+      // console.log('vpos: ', vpos)
 
       if (vpos === char) {
         hintCount += 1
       }
     })
 
-    console.log('hintCount', hintCount)
+    // console.log('hintCount', hintCount)
     setHint(String(hintCount))
 
     // check if length is four
@@ -181,11 +181,11 @@ const handleGuessSubmit = (
     if (hintCount === 4) {
       // u won
       setWinLoose(true)
-      console.log('u won')
+      // console.log('u won')
     } else if (counter === 11) {
       // lost
       setWinLoose(false)
-      console.log('u lost')
+      // console.log('u lost')
     } else {
       setCounter(counter + 1)
     }
