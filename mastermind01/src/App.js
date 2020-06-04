@@ -176,7 +176,9 @@ const handleGuessSubmit = (
       if (vpos === char) {
         hintCount += 1
       } else if (code.includes(vpos)) {
+        // this would be the next step for exercise 2 @Fabio
         console.log('value is but in wrong position', code, vpos)
+
         // setHint(
         //   String(hintCount) + 'vpos is included but in the wrong position!'
         // )
