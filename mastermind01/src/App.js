@@ -7,18 +7,18 @@ export default function App() {
 function MasterMind() {
   const [counter, setCounter] = useState(0)
   const [guesses, setGuesses] = useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
+    { try: '', hint: '' },
   ])
 
   const code = 4431
@@ -31,14 +31,24 @@ function MasterMind() {
       </div>
       {guesses.map((guess, index) => {
         let number = index + 1
-        console.log(counter)
-        console.log(index)
+        // console.log(counter)
+        // console.log(index)
         return (
-          <div style={{ color: counter === index ? 'blue' : 'grey' }}>
+          <div
+            style={{
+              display: 'flex',
+              color: counter === index ? 'blue' : 'grey',
+            }}
+          >
             {
               // counter === index + 1 &&
-              'Guess #' + number + ': ' + guess
+              <div>{'Guess #' + number + ': ' + guess.try}</div>
             }
+            {guess.hint.length > 0 && (
+              <div style={{ marginLeft: '1rem' }}>
+                {'You got ' + guess.hint + ' colors right!'}
+              </div>
+            )}
           </div>
         )
       })}
@@ -47,10 +57,10 @@ function MasterMind() {
         setValue={(value) => {
           console.log('value: ', value)
           let newGuess = [...guesses]
-          newGuess[counter] = value
+          newGuess[counter].try = value
           setGuesses(newGuess)
         }}
-        value={guesses[counter]}
+        value={guesses[counter].try}
         counter={counter}
         setCounter={setCounter}
       />
@@ -80,6 +90,8 @@ const GuessInput = ({ value, setValue, counter, setCounter }) => {
 const handleGuessSubmit = (e, value, setCounter, counter) => {
   e.preventDefault()
   // check if length is four
+
+  // calculate hint
   setCounter(counter + 1)
   return console.log('submitted', value)
 }
