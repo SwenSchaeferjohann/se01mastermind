@@ -91,6 +91,7 @@ function MasterMind() {
             }}
             winLoose={winLoose}
             setWinLoose={setWinLoose}
+            hint={guesses[counter].hint}
           />
         </Fragment>
       ) : winLoose === true ? (
@@ -109,6 +110,7 @@ const GuessInput = ({
   counter,
   setCounter,
   code,
+  hint,
   setHint,
   winLoose,
   setWinLoose,
@@ -126,6 +128,7 @@ const GuessInput = ({
             setCounter,
             counter,
             code,
+            hint,
             setHint,
             winLoose,
             setWinLoose
@@ -151,6 +154,7 @@ const handleGuessSubmit = (
   setCounter,
   counter,
   code,
+  hint,
   setHint,
   winLoose,
   setWinLoose
@@ -168,8 +172,14 @@ const handleGuessSubmit = (
       var vpos = value.charAt(index)
       // console.log('vpos: ', vpos)
 
+      console.log(char, value)
       if (vpos === char) {
         hintCount += 1
+      } else if (code.includes(vpos)) {
+        console.log('value is but in wrong position', code, vpos)
+        // setHint(
+        //   String(hintCount) + 'vpos is included but in the wrong position!'
+        // )
       }
     })
 
