@@ -6,6 +6,10 @@ export default function App() {
 
 function MasterMind() {
   const [guesses, setGuesses] = useState([])
+  // {
+  //   key: 0
+  //   value: ''
+  // }
   const code = 4431
 
   return (
@@ -24,20 +28,26 @@ function MasterMind() {
   )
 }
 
-const Guess1 = () => {
+const Guess1 = ({ value, setValue }) => {
   console.log('first guess')
+
   return (
     <Fragment>
       <div>Please enter your first guess (XXXX)</div>
-      <form onSubmit={(e) => handleGuessSubmit(e)}>
-        <input autoFocus></input>
+      <form onSubmit={(e) => handleGuessSubmit(e, value)}>
+        <input
+          type='text'
+          onChange={(e) => setValue(e.target.value)}
+          autoFocus
+        ></input>
         <button type='submit'>Guess!</button>
       </form>
     </Fragment>
   )
 }
 
-const handleGuessSubmit = (e) => {
+const handleGuessSubmit = (e, value) => {
   e.preventDefault()
-  return console.log('submitted')
+
+  return console.log('submitted', value)
 }
