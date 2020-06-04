@@ -5,23 +5,23 @@ export default function App() {
 }
 
 function MasterMind() {
-  const [guesses, setGuesses] = useState({
-    first: null,
-    second: null,
-    third: null,
-    fourth: null,
-    fifth: null,
-    sixth: null,
-    seventh: null,
-    eighth: null,
-    nineth: null,
-    tenth: null,
-    eleventh: null,
-    twelfth: null,
-  })
+  const [guesses, setGuesses] = useState([
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ])
 
   const code = 4431
-
+  console.log('guesses state', guesses)
   return (
     <Fragment>
       <div>
@@ -29,25 +29,27 @@ function MasterMind() {
         crackin'
       </div>
       {guesses.map((guess, index) => (
-        <div>
-          Guess #{index + 1}: {guess}{' '}
-        </div>
+        <div>{guess.length === 4 && 'Guess #' + index + 1 + ': ' + guess}</div>
       ))}
-      <Guess1
-        key={0}
-        setValue={(v) => {
-          newGuess = { ...guesses, first: v }
 
-          newGuess.push(v)
+      {
+        <GuessInput
+          key={0}
+          setValue={(value) => {
+            console.log('value: ', value)
 
-          setGuesses()
-        }}
-      />
+            let newGuess = [...guesses]
+            newGuess[0] = value
+            setGuesses(newGuess)
+          }}
+          value={guesses[0]}
+        />
+      }
     </Fragment>
   )
 }
 
-const Guess1 = ({ value, setValue }) => {
+const GuessInput = ({ value, setValue }) => {
   console.log('first guess')
 
   return (
@@ -57,6 +59,7 @@ const Guess1 = ({ value, setValue }) => {
         <input
           type='text'
           onChange={(e) => setValue(e.target.value)}
+          value={value}
           autoFocus
         ></input>
         <button type='submit'>Guess!</button>
@@ -67,6 +70,7 @@ const Guess1 = ({ value, setValue }) => {
 
 const handleGuessSubmit = (e, value) => {
   e.preventDefault()
+  // check if length is four
 
   return console.log('submitted', value)
 }
