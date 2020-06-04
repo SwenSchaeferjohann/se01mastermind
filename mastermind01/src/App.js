@@ -21,8 +21,8 @@ function MasterMind() {
     { try: '', hint: '' },
   ])
 
-  const code = 4431
-  console.log('guesses state', guesses)
+  const code = '4431'
+  // console.log('guesses state', guesses)
   return (
     <Fragment>
       <div>
@@ -46,7 +46,7 @@ function MasterMind() {
             }
             {guess.hint.length > 0 && (
               <div style={{ marginLeft: '1rem' }}>
-                {'You got ' + guess.hint + ' colors right!'}
+                {'You got ' + guess.hint + ' color/s right!'}
               </div>
             )}
           </div>
@@ -55,7 +55,7 @@ function MasterMind() {
       <GuessInput
         key={counter}
         setValue={(value) => {
-          console.log('value: ', value)
+          // console.log('value: ', value)
           let newGuess = [...guesses]
           newGuess[counter].try = value
           setGuesses(newGuess)
@@ -64,19 +64,33 @@ function MasterMind() {
         counter={counter}
         setCounter={setCounter}
         code={code}
+        setHint={(hint) => {
+          let newGuess = [...guesses]
+          newGuess[counter].hint = hint
+          setGuesses(newGuess)
+        }}
       />
     </Fragment>
   )
 }
 
-const GuessInput = ({ value, setValue, counter, setCounter, code }) => {
-  console.log('first guess')
+const GuessInput = ({
+  value,
+  setValue,
+  counter,
+  setCounter,
+  code,
+  setHint,
+}) => {
+  // console.log('first guess')
 
   return (
     <Fragment>
       <div>Enter guess #{counter + 1} (XXXX)</div>
       <form
-        onSubmit={(e) => handleGuessSubmit(e, value, setCounter, counter, code)}
+        onSubmit={(e) =>
+          handleGuessSubmit(e, value, setCounter, counter, code, setHint)
+        }
       >
         <input
           type='text'
@@ -90,15 +104,31 @@ const GuessInput = ({ value, setValue, counter, setCounter, code }) => {
   )
 }
 
-const handleGuessSubmit = (e, value, setCounter, counter, code) => {
+const handleGuessSubmit = (e, value, setCounter, counter, code, setHint) => {
   e.preventDefault()
+  console.log('code:', code)
   // check if length is four
   if (value.length === 4) {
     setCounter(counter + 1)
   }
 
-  console.log('code:', code)
   // calculate hint
+  var hintCount = 0
+
+  var strArr = [...code]
+  strArr.map((char, index) => {
+    console.log('char: ', char, index)
+
+    var vpos = value.charAt(index)
+    console.log('vpos: ', vpos)
+
+    if (vpos === char) {
+      hintCount += 1
+    }
+  })
+
+  console.log('hintCount', hintCount)
+  setHint(String(hintCount))
 
   return console.log('submitted', value)
 }
